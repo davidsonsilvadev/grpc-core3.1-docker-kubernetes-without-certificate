@@ -13,7 +13,6 @@ metadata:
     tier: api
     version: v1
 spec:
-  type: LoadBalancer
   ports:
     - port: 5003
       targetPort: 5003
@@ -52,7 +51,7 @@ spec:
             - name: VASR
               value: "VASR" 
           ports:
-            - name: http 
+            - name: grpc 
               containerPort: 5003
               protocol: TCP
           resources:
