@@ -1,0 +1,20 @@
+version: "3.9"
+services:
+  grpcserver:
+    image: 'testegrpcserver:v1'
+    # build: 'testegrpcclient:v1'
+    ports:
+      - "5003:5003"
+      - "5004:80"
+    networks:
+      - grpcnet
+  grpcclient:
+    image: 'testegrpcclient:v1'
+    ports:
+      - "8001:80"
+    networks:
+      - grpcnet
+networks:
+  grpcnet:
+    # Use a custom driver
+    driver: bridge

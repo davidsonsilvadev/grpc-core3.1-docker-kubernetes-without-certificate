@@ -1,0 +1,143 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: poc-grpc
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: poc-grpc-api-svc
+  namespace: poc-grpc
+  labels:
+    app: poc-grpc-api
+    tier: api
+    version: v1
+spec:
+  type: LoadBalancer
+  ports:
+    - port: 5003
+      targetPort: 5003
+  selector:
+    app: poc-grpc-api
+    tier: api
+    version: v1   
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: poc-grpc
+  name: poc-grpc-api-dep
+  labels:
+    app: poc-grpc-api
+    tier: api
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: poc-grpc-api
+      tier: api
+      version: v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: poc-grpc-api
+        tier: api
+        version: v1
+    spec:
+      containers:
+        - name: poc-grpc-api
+          image: 'testegrpcserver:v1'
+          env:
+            - name: VASR
+              value: "VASR" 
+          ports:
+            - name: http 
+              containerPort: 5003
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 200m
+              memory: 250Mi
+            limits:
+              cpu: 1
+              memory: 500Mi
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  namespace: poc-grpc
+  name: poc-grpc-job-dep
+  labels:
+    app: poc-grpc-job
+    tier: api
+    version: v1
+spec:
+  selector:
+    matchLabels:
+      app: poc-grpc-job
+      tier: api
+      version: v1
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: poc-grpc-job
+        tier: api
+        version: v1
+    spec:
+      containers:
+        - name: poc-grpc-job
+          image: 'testegrpcclient:v1'
+          env:
+            - name: urlApi
+              value: "http://poc-grpc-api-svc:80" 
+          ports:
+            - name: http 
+              containerPort: 80
+              protocol: TCP
+          resources:
+            requests:
+              cpu: 100m
+              memory: 250Mi
+            limits:
+              cpu: 1
+              memory: 500Mi
+          terminationMessagePolicy: File
+          imagePullPolicy: IfNotPresent
+      restartPolicy: Always
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxUnavailable: 25%
+      maxSurge: 25%
+---
+apiVersion: autoscaling/v2beta1
+kind: HorizontalPodAutoscaler
+metadata:
+  namespace: poc-grpc
+  name: poc-grpc-api-hpa
+spec:
+  minReplicas: 1
+  maxReplicas: 1
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: poc-grpc-api-dep
+  metrics:
+    - type: Resource
+      resource:
+        name: cpu
+        targetAverageUtilization: 95
+    - type: Resource
+      resource:
+        name: memory
+        targetAverageUtilization: 95
