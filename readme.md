@@ -10,4 +10,4 @@ comandos
 	kubectl apply -f davidson-47aso-atividadems-k8s-.yaml
 
 2 - ver logs
-	kubectl logs -f -l app=grpc-47aso-job
+	kubectl logs -f -l app=poc-grpc-job
