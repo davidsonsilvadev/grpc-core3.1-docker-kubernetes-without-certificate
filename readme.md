@@ -7,9 +7,9 @@ de uma comunicação interna entre PODs pelo ClusterIP. O objetivo era exatament
 de app dockerizada em utilização do TLS.
 
 ## Dependencias
- - [Awesome Readme Templates](https://awesomeopensource.com/project/elangosundar/awesome-README-templates)
- - [Awesome README](https://github.com/matiassingers/awesome-readme)
- - [How to write a Good readme](https://bulldogjob.com/news/449-how-to-write-a-good-readme-for-your-github-project)
+ - [Core 3.1](https://dotnet.microsoft.com/download/dotnet/3.1)
+ - [Docker+Kubernetes](https://www.docker.com/products/docker-desktop)
+ - [Visual Studio 2019](https://visualstudio.microsoft.com/pt-br/vs/)
 
 ## Utilização
 
@@ -31,13 +31,14 @@ docker build -t testegrpcclient:v1 .\Poc.Grpc.Client\
 kubectl apply -f k8s.yml
 ```
 
+## 🛠 Skills
+.NET,C#,Docker,Kubernetes...
+
 ## Contributing
 
 Contributions are always welcome!
 
-See `contributing.md` for ways to get started.
-
-Please adhere to this project's `code of conduct`.
+😎🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧🐧
 
 ## License
 
