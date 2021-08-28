@@ -28,7 +28,7 @@ docker build -t testegrpcclient:v1 .\Poc.Grpc.Client\
 #### Aplicar k8s no Kubernetes
 
 ```bash
-kubectl apply -f k8s.yml
+kubectl apply -f k8s.yaml
 ```
 
 ## 🛠 Skills
