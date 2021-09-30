@@ -25,7 +25,7 @@ namespace Poc.Grcp
                     {
                         options.Listen(IPAddress.Any, 80, o => o.Protocols = HttpProtocols.Http1AndHttp2);
                         // Configura um HTTP/2 endpoint sem TLS.
-                        options.Listen(IPAddress.Any, 5003, o => o.Protocols = HttpProtocols.Http2);
+                        options.Listen(IPAddress.Any, 5004, o => o.Protocols = HttpProtocols.Http2);
                     });
                     webBuilder.UseStartup<Startup>();
                 });

@@ -14,8 +14,8 @@ metadata:
     version: v1
 spec:
   ports:
-    - port: 5003
-      targetPort: 5003
+    - port: 9090
+      targetPort: 9090
   selector:
     app: poc-grpc-api
     tier: api
@@ -52,7 +52,7 @@ spec:
               value: "VASR" 
           ports:
             - name: grpc 
-              containerPort: 5003
+              containerPort: 9090
               protocol: TCP
           resources:
             requests:
@@ -63,6 +63,10 @@ spec:
               memory: 500Mi
           terminationMessagePolicy: File
           imagePullPolicy: IfNotPresent
+          livenessProbe:
+              exec:
+                command: ["/bin/grpc_health_probe", "-addr=:9090"]
+              initialDelaySeconds: 10          
       restartPolicy: Always
   strategy:
     type: RollingUpdate

@@ -6,8 +6,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <None Remove="Protos\health.proto" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Google.Protobuf" Version="3.17.3" />
     <PackageReference Include="Grpc.Net.Client" Version="2.38.0" />
+    <PackageReference Include="Grpc.Net.ClientFactory" Version="2.38.0" />
     <PackageReference Include="Grpc.Tools" Version="2.38.1">
       <PrivateAssets>all</PrivateAssets>
       <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
@@ -16,14 +21,14 @@
     <PackageReference Include="Microsoft.Extensions.Configuration.Abstractions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.FileExtensions" Version="5.0.0" />
     <PackageReference Include="Microsoft.Extensions.Configuration.Json" Version="5.0.0" />
+    <PackageReference Include="Microsoft.Extensions.DependencyInjection.Abstractions" Version="3.1.19" />
+    <PackageReference Include="Microsoft.Extensions.Hosting" Version="3.1.19" />
+    <PackageReference Include="Microsoft.Extensions.Hosting.Abstractions" Version="3.1.19" />
   </ItemGroup>
 
   <ItemGroup>
+    <Protobuf Include="Protos\health.proto" GrpcServices="Client" />
     <Protobuf Include="Protos\greet.proto" GrpcServices="Client" />
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Protos\" />
   </ItemGroup>
 
   <ItemGroup>

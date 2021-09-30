@@ -29,11 +29,10 @@ namespace Poc.Grcp
 
             app.UseRouting();
 
-
-
             app.UseEndpoints(endpoints =>
             {
                 endpoints.MapGrpcService<GreeterService>();
+                endpoints.MapGrpcService<GrpcHealthCheckService>();
 
                 endpoints.MapGet("/", async context =>
                 {

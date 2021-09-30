@@ -18,4 +18,16 @@ message HelloRequest {
 // The response message containing the greetings.
 message HelloReply {
   string message = 1;
+  HelloReplySubType helloReplySubType = 2;
+  Response response = 3;
+}
+
+message HelloReplySubType {
+	int32 messageInt = 1;
+}
+
+message Response {
+	int32 status = 1;
+	string errorMessage = 2;
+	string notifications = 3;
 }
